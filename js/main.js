@@ -18,7 +18,7 @@ const DESCRIPTION = [
 
 const NAME = ['Дима', 'Даша', 'Миша', 'Анатолий', 'Сергей', 'Виктор', 'Ольга', 'Ирина'];
 
-const COUNT_PHOTO = 24;
+const COUNT_PHOTO = 25;
 
 const getRandomNumberInRange = (min, max) => {
   if (min > max) {
