@@ -1,3 +1,1 @@
-import discriptionPhotos from './data.js';
-
-console.log(discriptionPhotos);
+import './render-imagen.js';
