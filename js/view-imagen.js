@@ -1,3 +1,10 @@
+const initialStatesPhoto = (element) => {
+  element.classList.add('hidden');
+  document.querySelector('.social__comment-count').classList.remove('hidden');
+  document.querySelector('.comments-loader').classList.remove('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+};
+
 const viewImagen = (data) => {
   document.querySelector('.social__comment-count').classList.add('hidden');
   document.querySelector('.comments-loader').classList.add('hidden');
@@ -7,12 +14,12 @@ const viewImagen = (data) => {
   bigPicture.classList.remove('hidden');
 
   bigPicture.querySelector('.big-picture__cancel').addEventListener('click', () => {
-    bigPicture.classList.add('hidden');
+    initialStatesPhoto(bigPicture);
   });
 
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape' && !bigPicture.classList.contains('hidden')) {
-      bigPicture.classList.add('hidden');
+      initialStatesPhoto(bigPicture);
     }
   });
 
