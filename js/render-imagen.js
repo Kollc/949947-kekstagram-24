@@ -1,5 +1,5 @@
 import discriptionPhotos from './data.js';
-import viewImagen from './view-imagen.js';
+import setupBigPictureDisplay from './view-imagen.js';
 
 const renderImagen = () => {
   const templateImages = document.querySelector('#picture').content.querySelector('.picture');
@@ -12,7 +12,7 @@ const renderImagen = () => {
     elem.querySelector('.picture__likes').textContent = image.likes;
     elem.querySelector('.picture__comments').textContent = image.comments.length;
 
-    elem.addEventListener('click', () => viewImagen(image));
+    elem.addEventListener('click', () => setupBigPictureDisplay(image));
 
     fragment.appendChild(elem);
   });

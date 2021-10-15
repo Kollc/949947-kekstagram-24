@@ -1,27 +1,42 @@
-const initialStatesPhoto = (element) => {
-  element.classList.add('hidden');
+const bigPicture = document.querySelector('.big-picture');
+const closeButton = bigPicture.querySelector('.big-picture__cancel');
+
+const initialStatesPhoto = () => {
+  bigPicture.classList.add('hidden');
   document.querySelector('.social__comment-count').classList.remove('hidden');
   document.querySelector('.comments-loader').classList.remove('hidden');
   document.querySelector('body').classList.remove('modal-open');
 };
+
+
+const closeClickHundler = () => {
+  initialStatesPhoto();
+  resetListeners();
+};
+
+const closeKeydownHundler = (evt) => {
+  if (evt.key === 'Escape' && !bigPicture.classList.contains('hidden')) {
+    initialStatesPhoto();
+  }
+
+  resetListeners();
+};
+
+// объявляем функцию по другому, тк нужен hoisting
+function resetListeners() {
+  closeButton.removeEventListener('click', closeClickHundler);
+  document.removeEventListener('keydown', closeKeydownHundler);
+}
 
 const viewImagen = (data) => {
   document.querySelector('.social__comment-count').classList.add('hidden');
   document.querySelector('.comments-loader').classList.add('hidden');
   document.querySelector('body').classList.add('modal-open');
 
-  const bigPicture = document.querySelector('.big-picture');
   bigPicture.classList.remove('hidden');
 
-  bigPicture.querySelector('.big-picture__cancel').addEventListener('click', () => {
-    initialStatesPhoto(bigPicture);
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape' && !bigPicture.classList.contains('hidden')) {
-      initialStatesPhoto(bigPicture);
-    }
-  });
+  closeButton.addEventListener('click', closeClickHundler);
+  document.addEventListener('keydown', closeKeydownHundler);
 
   bigPicture.querySelector('.big-picture__img img').src = data.url;
   bigPicture.querySelector('.likes-count').textContent = data.likes;
