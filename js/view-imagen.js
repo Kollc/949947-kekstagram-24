@@ -28,7 +28,7 @@ function resetListeners() {
   document.removeEventListener('keydown', closeKeydownHundler);
 }
 
-const viewImagen = (data) => {
+const setupBigPictureDisplay = (data) => {
   document.querySelector('.social__comment-count').classList.add('hidden');
   document.querySelector('.comments-loader').classList.add('hidden');
   document.querySelector('body').classList.add('modal-open');
@@ -62,4 +62,4 @@ const viewImagen = (data) => {
   socialCommentsContainer.appendChild(fragment);
 };
 
-export default viewImagen;
+export default setupBigPictureDisplay;
