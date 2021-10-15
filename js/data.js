@@ -40,7 +40,7 @@ const createDescriptionPhoto = (...args) => {
   return {
     id: index + 1,
     url: `photos/${index + 1}.jpg`,
-    desciption: DESCRIPTION[getRandomNumberInRange(0, DESCRIPTION.length - 1)],
+    description: DESCRIPTION[getRandomNumberInRange(0, DESCRIPTION.length - 1)],
     likes: getRandomNumberInRange(15, 200),
     comments: Array.from({
       length: getRandomNumberInRange(1, 4),
