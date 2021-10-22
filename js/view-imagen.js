@@ -1,7 +1,7 @@
 import {
   closePopup,
   showPopup
-} from './popup.js';
+} from './utils/popup.js';
 
 import checkEscapeKeydown from './utils/check-escape-keydown.js';
 

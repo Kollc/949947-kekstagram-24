@@ -1,18 +1,20 @@
 import {
   closePopup,
   showPopup
-} from './popup.js';
+} from './utils/popup.js';
 
 import {
-  hashTagValidity,
-  commentValidation
+  checkHashTagsValidity,
+  checkCommentValidation
 } from './from-validation.js';
 
 import checkEscapeKeydown from './utils/check-escape-keydown.js';
+import addErrorMessage from './utils/add-error-message.js';
 
 const MAX_SCALE_VALUE = 100;
 const STEP_SCALE_VALUE = 25;
 const MIN_SCALE_VALUE = 25;
+const DEFAULT_SCALE_VALUE = '100%';
 
 const form = document.querySelector('.img-upload__form');
 const uploadInput = document.querySelector('.img-upload__input');
@@ -67,14 +69,6 @@ const scaleClickHundler = (evt) => {
   }
 };
 
-const checkHashTagInputHundler = () => {
-  hashTagValidity(hashTagInput);
-};
-
-const checkCommentInputHundler = () => {
-  commentValidation(commentInput);
-};
-
 // TODO: Slider
 const effectOperationWithImagen = (effect) => {
   imagenPreview.className = '';
@@ -89,6 +83,9 @@ const addEffectClickHundler = (evt) => {
 
 const submitFormHundler = (evt) => {
   evt.preventDefault();
+
+  addErrorMessage(hashTagInput, checkHashTagsValidity(hashTagInput.value));
+  addErrorMessage(commentInput, checkCommentValidation(commentInput.value));
 };
 
 // объявляем функцию по другому, тк нужен hoisting
@@ -97,23 +94,18 @@ function resetListeners() {
   document.removeEventListener('keydown', closeKeydownHundler);
   uploadScale.removeEventListener('click', scaleClickHundler);
   effectButtonsField.removeEventListener('click', addEffectClickHundler);
-  hashTagInput.removeEventListener('input', checkHashTagInputHundler);
-  commentInput.removeEventListener('input', checkCommentInputHundler);
   form.removeEventListener('submit', submitFormHundler);
 }
 
 uploadInput.addEventListener('change', () => {
   showPopup(uploadOverlay);
-  uploadScaleValue.value = '100%'; // default  value
+  uploadScaleValue.value = DEFAULT_SCALE_VALUE; // default  value
 
   closeButton.addEventListener('click', closeClickHundler);
   document.addEventListener('keydown', closeKeydownHundler);
 
   uploadScale.addEventListener('click', scaleClickHundler);
   effectButtonsField.addEventListener('click', addEffectClickHundler);
-
-  hashTagInput.addEventListener('input', checkHashTagInputHundler);
-  commentInput.addEventListener('input', checkCommentInputHundler);
 
   form.addEventListener('submit', submitFormHundler);
 });
