@@ -1,11 +1,18 @@
+import {
+  closePopup,
+  showPopup
+} from './utils/popup.js';
+
+import checkEscapeKeydown from './utils/check-escape-keydown.js';
+
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
+document.querySelector('.social__comment-count').classList.remove('hidden');
+document.querySelector('.comments-loader').classList.remove('hidden');
+
 const initialStatesPhoto = () => {
-  bigPicture.classList.add('hidden');
-  document.querySelector('.social__comment-count').classList.remove('hidden');
-  document.querySelector('.comments-loader').classList.remove('hidden');
-  document.querySelector('body').classList.remove('modal-open');
+  closePopup(bigPicture);
 };
 
 
@@ -15,8 +22,8 @@ const closeClickHundler = () => {
 };
 
 const closeKeydownHundler = (evt) => {
-  if (evt.key === 'Escape' && !bigPicture.classList.contains('hidden')) {
-    initialStatesPhoto();
+  if (checkEscapeKeydown(evt, bigPicture)) {
+    closePopup(bigPicture);
   }
 
   resetListeners();
@@ -31,9 +38,8 @@ function resetListeners() {
 const setupBigPictureDisplay = (data) => {
   document.querySelector('.social__comment-count').classList.add('hidden');
   document.querySelector('.comments-loader').classList.add('hidden');
-  document.querySelector('body').classList.add('modal-open');
 
-  bigPicture.classList.remove('hidden');
+  showPopup(bigPicture);
 
   closeButton.addEventListener('click', closeClickHundler);
   document.addEventListener('keydown', closeKeydownHundler);
