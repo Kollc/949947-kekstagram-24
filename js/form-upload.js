@@ -27,6 +27,7 @@ const uploadScaleValue = uploadScale.querySelector('.scale__control--value');
 const effectButtonsField = document.querySelector('.effects__list');
 const hashTagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
+const submitButton = document.querySelector('.img-upload__submit');
 
 const scaleOperationWithImagen = (operation) => {
   let currentValue = uploadScaleValue.value.replace(/%/g, '');
@@ -81,11 +82,14 @@ const addEffectClickHundler = (evt) => {
   }
 };
 
-const submitFormHundler = (evt) => {
-  evt.preventDefault();
-
+const clickSubmitButtonHundler = () => {
   addErrorMessage(hashTagInput, checkHashTagsValidity(hashTagInput.value));
   addErrorMessage(commentInput, checkCommentValidation(commentInput.value));
+};
+
+const submitFormHundler = (evt) => {
+  evt.preventDefault();
+  //TODO: send data
 };
 
 // объявляем функцию по другому, тк нужен hoisting
@@ -95,11 +99,12 @@ function resetListeners() {
   uploadScale.removeEventListener('click', scaleClickHundler);
   effectButtonsField.removeEventListener('click', addEffectClickHundler);
   form.removeEventListener('submit', submitFormHundler);
+  submitButton.removeEventListener('click', clickSubmitButtonHundler);
 }
 
 uploadInput.addEventListener('change', () => {
   showPopup(uploadOverlay);
-  uploadScaleValue.value = DEFAULT_SCALE_VALUE; // default  value
+  uploadScaleValue.value = DEFAULT_SCALE_VALUE;
 
   closeButton.addEventListener('click', closeClickHundler);
   document.addEventListener('keydown', closeKeydownHundler);
@@ -108,4 +113,5 @@ uploadInput.addEventListener('change', () => {
   effectButtonsField.addEventListener('click', addEffectClickHundler);
 
   form.addEventListener('submit', submitFormHundler);
+  submitButton.addEventListener('click', clickSubmitButtonHundler);
 });
