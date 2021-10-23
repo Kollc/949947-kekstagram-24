@@ -15,10 +15,9 @@ const checkCommentValidation = (elementValue) => {
 
 const checkHashTagsValidity = (elementValue) => {
   const errorMessageArray = Array();
-
   const allHashTags = elementValue.split(' ');
 
-  if (allHashTags.length > 0) {
+  if (allHashTags.length > 0 && elementValue) {
 
     if (allHashTags.length > MAX_HASHTAG_COUNT) {
       errorMessageArray.push('Количество Хэштегов не должно превышать 5 штук');
