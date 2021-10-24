@@ -43,7 +43,7 @@ const createDescriptionPhoto = (...args) => {
     description: DESCRIPTION[getRandomNumberInRange(0, DESCRIPTION.length - 1)],
     likes: getRandomNumberInRange(15, 200),
     comments: Array.from({
-      length: getRandomNumberInRange(1, 4),
+      length: getRandomNumberInRange(1, 20),
     }, createComments),
   };
 };
