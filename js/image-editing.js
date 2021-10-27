@@ -13,6 +13,7 @@ const sliderElement = document.querySelector('.effect-level__slider');
 
 const uploadScaleValue = uploadScale.querySelector('.scale__control--value');
 const uploadEffectLevelValue = document.querySelector('.effect-level__value');
+const fieldSliderElement = document.querySelector('.effect-level');
 
 const effectRange = {
   chrome: {
@@ -118,9 +119,11 @@ const effectOperationWithImagen = (effect) => {
       initalsSlider();
     }
 
+    fieldSliderElement.style.display = 'block';
     updateSliderEffect(effectRange[effect]);
   } else {
     imagenPreview.style = '';
+    fieldSliderElement.style.display = 'none';
     sliderElement.noUiSlider.destroy();
   }
 };

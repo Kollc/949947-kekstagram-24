@@ -29,6 +29,7 @@ const effectButtonsField = document.querySelector('.effects__list');
 const hashTagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 const submitButton = document.querySelector('.img-upload__submit');
+const fieldSliderElement = document.querySelector('.effect-level');
 
 const closeClickHundler = () => {
   closePopup(uploadOverlay);
@@ -85,6 +86,7 @@ function resetListeners() {
 uploadInput.addEventListener('change', () => {
   showPopup(uploadOverlay);
   uploadScaleValue.value = DEFAULT_SCALE_VALUE;
+  fieldSliderElement.style.display = 'none'; // прячем полоску в которой должен быть слайдер
 
   closeButton.addEventListener('click', closeClickHundler);
   document.addEventListener('keydown', closeKeydownHundler);
