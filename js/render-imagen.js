@@ -1,7 +1,6 @@
-import discriptionPhotos from './data.js';
 import setupBigPictureDisplay from './view-imagen.js';
 
-const renderImagen = () => {
+const renderImagen = (discriptionPhotos) => {
   const templateImages = document.querySelector('#picture').content.querySelector('.picture');
   const container = document.querySelector('.pictures');
   const fragment = document.createDocumentFragment();
@@ -20,4 +19,4 @@ const renderImagen = () => {
   container.appendChild(fragment);
 };
 
-renderImagen();
+export default renderImagen;

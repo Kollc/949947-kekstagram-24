@@ -13,6 +13,15 @@ import {
   scaleOperationWithImagen
 } from './image-editing.js';
 
+import {
+  sendData
+} from './utils/api.js';
+
+import {
+  showSuccessMessage,
+  showErrorMessage
+} from './utils/show-message-api.js';
+
 import checkEscapeKeydown from './utils/check-escape-keydown.js';
 import addErrorMessage from './utils/add-error-message.js';
 
@@ -70,7 +79,9 @@ const clickSubmitButtonHundler = () => {
 
 const submitFormHundler = (evt) => {
   evt.preventDefault();
-  //TODO: send data
+
+  const data = new FormData(evt.target);
+  sendData(showSuccessMessage, showErrorMessage, data);
 };
 
 // объявляем функцию по другому, тк нужен hoisting
