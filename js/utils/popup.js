@@ -1,8 +1,12 @@
+import returnFormInitialState from './return-form-initial-state.js';
+
 const body = document.querySelector('body');
 
 const closePopup = (modal) => {
   modal.classList.add('hidden');
   body.classList.remove('modal-open');
+
+  returnFormInitialState(modal);
 };
 
 const showPopup = (modal) => {
