@@ -47,9 +47,8 @@ const closeErrorMessageSubstrateClickHundler = (evt) => {
 
   if (evt.target.classList.contains('error')) {
     errorMessageTemplate.remove();
+    resetListeners();
   }
-
-  resetListeners();
 };
 
 const closeSuccessMessageSubstrateClickHundler = (evt) => {
@@ -57,9 +56,8 @@ const closeSuccessMessageSubstrateClickHundler = (evt) => {
 
   if (evt.target.classList.contains('success')) {
     successMessageTemplate.remove();
+    resetListeners();
   }
-
-  resetListeners();
 };
 
 const closeSuccessMessageKeydownHundler = (evt) => {
@@ -83,30 +81,20 @@ function resetListeners() {
   successButton.removeEventListener('click', closeSuccessMessageClickHundler);
   successMessageTemplate.removeEventListener('click', closeSuccessMessageSubstrateClickHundler);
   document.removeEventListener('keydown', closeSuccessMessageKeydownHundler);
+
   errorButton.removeEventListener('click', closeErrorMessageClickHundler);
   errorMessageTemplate.removeEventListener('click', closeErrorMessageSubstrateClickHundler);
   document.removeEventListener('keydown', closeErrorMessageKeydownHundler);
 }
 
-const createMessageErrorSendForm = () => {
-  errorButton.addEventListener('click', closeErrorMessageClickHundler);
-  errorMessageTemplate.addEventListener('click', closeErrorMessageSubstrateClickHundler);
-  document.addEventListener('keydown', closeErrorMessageKeydownHundler);
-
-  body.insertAdjacentElement('beforeend', errorMessageTemplate);
-};
-
-const createMessageSuccessSendForm = () => {
-  successButton.addEventListener('click', closeSuccessMessageClickHundler);
-  successMessageTemplate.addEventListener('click', closeSuccessMessageSubstrateClickHundler);
-  document.addEventListener('keydown', closeSuccessMessageKeydownHundler);
-
-  body.insertAdjacentElement('beforeend', successMessageTemplate);
-};
-
 const showErrorMessage = (errorMassege, sendDataError = false) => {
   if (sendDataError) {
-    createMessageErrorSendForm();
+    closePopup(modal);
+
+    errorButton.addEventListener('click', closeErrorMessageClickHundler);
+    errorMessageTemplate.addEventListener('click', closeErrorMessageSubstrateClickHundler);
+    document.addEventListener('keydown', closeErrorMessageKeydownHundler);
+    body.insertAdjacentElement('beforeend', errorMessageTemplate);
   } else {
     createMessageErrorGetData('show-error-message', 'red', errorMassege);
   }
@@ -114,7 +102,11 @@ const showErrorMessage = (errorMassege, sendDataError = false) => {
 
 const showSuccessMessage = () => {
   closePopup(modal);
-  createMessageSuccessSendForm();
+
+  successButton.addEventListener('click', closeSuccessMessageClickHundler);
+  successMessageTemplate.addEventListener('click', closeSuccessMessageSubstrateClickHundler);
+  document.addEventListener('keydown', closeSuccessMessageKeydownHundler);
+  body.insertAdjacentElement('beforeend', successMessageTemplate);
 };
 
 export {
