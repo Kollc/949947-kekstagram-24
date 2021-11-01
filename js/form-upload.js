@@ -24,7 +24,7 @@ import {
 
 import checkEscapeKeydown from './utils/check-escape-keydown.js';
 import addErrorMessage from './utils/add-error-message.js';
-import addLoadedPhotoToPreview from './avatar.js';
+import addLoadedPhotoToPreview from './loaded-preview-photo.js';
 
 const DEFAULT_SCALE_VALUE = '100%';
 

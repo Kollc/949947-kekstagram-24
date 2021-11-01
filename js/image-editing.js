@@ -7,15 +7,7 @@ const DEFAULT_STEP_SLIDER_VALUE = 1;
 const DEFAULT_MIN_SLIDER_VALUE = 0;
 const DEFAULT_MAX_SLIDER_VALUE = 100;
 
-const imagenPreview = document.querySelector('.img-upload__preview img');
-const uploadScale = document.querySelector('.img-upload__scale');
-const sliderElement = document.querySelector('.effect-level__slider');
-
-const uploadScaleValue = uploadScale.querySelector('.scale__control--value');
-const uploadEffectLevelValue = document.querySelector('.effect-level__value');
-const fieldSliderElement = document.querySelector('.effect-level');
-
-const effectRange = {
+const EFFECTS_LIST = {
   chrome: {
     min: 0,
     max: 1,
@@ -52,6 +44,14 @@ const effectRange = {
     operation: '',
   },
 };
+
+const imagenPreview = document.querySelector('.img-upload__preview img');
+const uploadScale = document.querySelector('.img-upload__scale');
+const sliderElement = document.querySelector('.effect-level__slider');
+
+const uploadScaleValue = uploadScale.querySelector('.scale__control--value');
+const uploadEffectLevelValue = document.querySelector('.effect-level__value');
+const fieldSliderElement = document.querySelector('.effect-level');
 
 const initalsSlider = () => {
   noUiSlider.create(sliderElement, {
@@ -120,7 +120,7 @@ const effectOperationWithImagen = (effect) => {
     }
 
     fieldSliderElement.style.display = 'block';
-    updateSliderEffect(effectRange[effect]);
+    updateSliderEffect(EFFECTS_LIST[effect]);
   } else {
     imagenPreview.style = '';
     fieldSliderElement.style.display = 'none';

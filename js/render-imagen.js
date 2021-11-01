@@ -1,4 +1,4 @@
-import setupBigPictureDisplay from './view-imagen.js';
+import setupBigPictureDisplay from './setup-big-picture-display.js';
 
 const renderImagen = (discriptionPhotos) => {
   const templateImages = document.querySelector('#picture').content.querySelector('.picture');

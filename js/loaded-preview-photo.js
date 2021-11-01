@@ -1,3 +1,4 @@
+
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const imagenPreview = document.querySelector('.img-upload__preview img');
