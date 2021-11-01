@@ -24,6 +24,7 @@ import {
 
 import checkEscapeKeydown from './utils/check-escape-keydown.js';
 import addErrorMessage from './utils/add-error-message.js';
+import addLoadedPhotoToPreview from './avatar.js';
 
 const DEFAULT_SCALE_VALUE = '100%';
 
@@ -95,6 +96,8 @@ function resetListeners() {
 }
 
 uploadInput.addEventListener('change', () => {
+  addLoadedPhotoToPreview();
+
   showPopup(uploadOverlay);
   uploadScaleValue.value = DEFAULT_SCALE_VALUE;
   fieldSliderElement.style.display = 'none'; // прячем полоску в которой должен быть слайдер

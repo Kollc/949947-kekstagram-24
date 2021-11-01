@@ -2,9 +2,18 @@ import {
   closePopup
 } from './popup.js';
 
-const createMessageContainer = (className, backgroundColor, message) => {
+import checkEscapeKeydown from './check-escape-keydown.js';
+
+const body = document.querySelector('body');
+const modal = document.querySelector('.img-upload__overlay');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+const successMessageTemplate = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+const errorButton = errorMessageTemplate.querySelector('.error__button');
+const successButton = successMessageTemplate.querySelector('.success__button');
+
+
+const createMessageErrorGetData = (className, backgroundColor, message) => {
   const container = document.createElement('div');
-  const body = document.querySelector('body');
 
   container.classList.add(className);
   container.style.width = '100%';
@@ -21,23 +30,91 @@ const createMessageContainer = (className, backgroundColor, message) => {
   body.appendChild(container);
 };
 
-const showErrorMessage = (errorMassege, sendDataError = false) => {
-  createMessageContainer('show-error-message', 'red', errorMassege);
+const closeSuccessMessageClickHundler = () => {
+  successMessageTemplate.remove();
 
+  resetListeners();
+};
+
+const closeErrorMessageClickHundler = () => {
+  errorMessageTemplate.remove();
+
+  resetListeners();
+};
+
+const closeErrorMessageSubstrateClickHundler = (evt) => {
+  evt.stopPropagation();
+
+  if (evt.target.classList.contains('error')) {
+    errorMessageTemplate.remove();
+  }
+
+  resetListeners();
+};
+
+const closeSuccessMessageSubstrateClickHundler = (evt) => {
+  evt.stopPropagation();
+
+  if (evt.target.classList.contains('success')) {
+    successMessageTemplate.remove();
+  }
+
+  resetListeners();
+};
+
+const closeSuccessMessageKeydownHundler = (evt) => {
+  if (checkEscapeKeydown(evt, successMessageTemplate)) {
+    closePopup(successMessageTemplate);
+  }
+
+  resetListeners();
+};
+
+const closeErrorMessageKeydownHundler = (evt) => {
+  if (checkEscapeKeydown(evt, errorMessageTemplate)) {
+    closePopup(errorMessageTemplate);
+  }
+
+  resetListeners();
+};
+
+// объявляем функцию по другому, тк нужен hoisting
+function resetListeners() {
+  successButton.removeEventListener('click', closeSuccessMessageClickHundler);
+  successMessageTemplate.removeEventListener('click', closeSuccessMessageSubstrateClickHundler);
+  document.removeEventListener('keydown', closeSuccessMessageKeydownHundler);
+  errorButton.removeEventListener('click', closeErrorMessageClickHundler);
+  errorMessageTemplate.removeEventListener('click', closeErrorMessageSubstrateClickHundler);
+  document.removeEventListener('keydown', closeErrorMessageKeydownHundler);
+}
+
+const createMessageErrorSendForm = () => {
+  errorButton.addEventListener('click', closeErrorMessageClickHundler);
+  errorMessageTemplate.addEventListener('click', closeErrorMessageSubstrateClickHundler);
+  document.addEventListener('keydown', closeErrorMessageKeydownHundler);
+
+  body.insertAdjacentElement('beforeend', errorMessageTemplate);
+};
+
+const createMessageSuccessSendForm = () => {
+  successButton.addEventListener('click', closeSuccessMessageClickHundler);
+  successMessageTemplate.addEventListener('click', closeSuccessMessageSubstrateClickHundler);
+  document.addEventListener('keydown', closeSuccessMessageKeydownHundler);
+
+  body.insertAdjacentElement('beforeend', successMessageTemplate);
+};
+
+const showErrorMessage = (errorMassege, sendDataError = false) => {
   if (sendDataError) {
-    setTimeout(() => {
-      document.querySelector('.show-error-message').remove();
-    }, 2000);
+    createMessageErrorSendForm();
+  } else {
+    createMessageErrorGetData('show-error-message', 'red', errorMassege);
   }
 };
 
-const showSuccessMessage = (successMassege) => {
-  createMessageContainer('show-success-message', 'green', successMassege, true);
-
-  setTimeout(() => {
-    document.querySelector('.show-success-message').remove();
-    closePopup(document.querySelector('.img-upload__overlay'));
-  }, 2000);
+const showSuccessMessage = () => {
+  closePopup(modal);
+  createMessageSuccessSendForm();
 };
 
 export {

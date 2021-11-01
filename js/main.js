@@ -3,9 +3,9 @@ import './form-upload.js';
 import {
   getData
 } from './utils/api.js';
-import renderImagen from './render-imagen.js';
+import activateFilterRenderImage from './filter.js';
 import {
   showErrorMessage
 } from './utils/show-message-api.js';
 
-getData(renderImagen, showErrorMessage); // загружаем данные
+getData(activateFilterRenderImage, showErrorMessage); // загружаем данные

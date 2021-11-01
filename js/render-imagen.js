@@ -5,6 +5,12 @@ const renderImagen = (discriptionPhotos) => {
   const container = document.querySelector('.pictures');
   const fragment = document.createDocumentFragment();
 
+  const allPicture = container.querySelectorAll('.picture');
+
+  allPicture.forEach((item) => {
+    item.remove();
+  });
+
   discriptionPhotos.forEach((image) => {
     const elem = templateImages.cloneNode(true);
     elem.querySelector('img').src = image.url;
