@@ -28,22 +28,22 @@ import addLoadedPhotoToPreview from './loaded-preview-photo.js';
 
 const DEFAULT_SCALE_VALUE = '100%';
 
-const form = document.querySelector('.img-upload__form');
-const uploadInput = document.querySelector('.img-upload__input');
-const closeButton = document.querySelector('.img-upload__cancel');
-const uploadOverlay = document.querySelector('.img-upload__overlay');
+const formElement = document.querySelector('.img-upload__form');
+const uploadInputElement = document.querySelector('.img-upload__input');
+const closeButtonElement = document.querySelector('.img-upload__cancel');
+const uploadOverlayElement = document.querySelector('.img-upload__overlay');
 
-const uploadScale = document.querySelector('.img-upload__scale');
-const uploadScaleValue = uploadScale.querySelector('.scale__control--value');
-const effectButtonsField = document.querySelector('.effects__list');
-const hashTagInput = document.querySelector('.text__hashtags');
-const commentInput = document.querySelector('.text__description');
-const submitButton = document.querySelector('.img-upload__submit');
-const fieldSliderElement = document.querySelector('.effect-level');
+const uploadScaleElement = document.querySelector('.img-upload__scale');
+const uploadScaleValueElement = uploadScaleElement.querySelector('.scale__control--value');
+const effectButtonsFieldElement = document.querySelector('.effects__list');
+const hashTagInputElement = document.querySelector('.text__hashtags');
+const commentInputElement = document.querySelector('.text__description');
+const submitButtonElement = document.querySelector('.img-upload__submit');
+const fieldSliderElementElement = document.querySelector('.effect-level');
 
 const closeClickHundler = () => {
-  closePopup(uploadOverlay);
-  uploadInput.value = '';
+  closePopup(uploadOverlayElement);
+  uploadInputElement.value = '';
   resetListeners();
 };
 
@@ -52,9 +52,9 @@ const closeKeydownHundler = (evt) => {
 
   if (elementName === 'INPUT' || elementName === 'TEXTAREA') {
     evt.stopPropagation();
-  } else if (checkEscapeKeydown(evt, uploadInput)) {
-    uploadInput.value = '';
-    closePopup(uploadOverlay);
+  } else if (checkEscapeKeydown(evt, uploadInputElement)) {
+    uploadInputElement.value = '';
+    closePopup(uploadOverlayElement);
     resetListeners();
   }
 };
@@ -74,8 +74,8 @@ const addEffectClickHundler = (evt) => {
 };
 
 const clickSubmitButtonHundler = () => {
-  addErrorMessage(hashTagInput, checkHashTagsValidity(hashTagInput.value));
-  addErrorMessage(commentInput, checkCommentValidation(commentInput.value));
+  addErrorMessage(hashTagInputElement, checkHashTagsValidity(hashTagInputElement.value));
+  addErrorMessage(commentInputElement, checkCommentValidation(commentInputElement.value));
 };
 
 const submitFormHundler = (evt) => {
@@ -87,27 +87,27 @@ const submitFormHundler = (evt) => {
 
 // объявляем функцию по другому, тк нужен hoisting
 function resetListeners() {
-  closeButton.removeEventListener('click', closeClickHundler);
+  closeButtonElement.removeEventListener('click', closeClickHundler);
   document.removeEventListener('keydown', closeKeydownHundler);
-  uploadScale.removeEventListener('click', scaleClickHundler);
-  effectButtonsField.removeEventListener('click', addEffectClickHundler);
-  form.removeEventListener('submit', submitFormHundler);
-  submitButton.removeEventListener('click', clickSubmitButtonHundler);
+  uploadScaleElement.removeEventListener('click', scaleClickHundler);
+  effectButtonsFieldElement.removeEventListener('click', addEffectClickHundler);
+  formElement.removeEventListener('submit', submitFormHundler);
+  submitButtonElement.removeEventListener('click', clickSubmitButtonHundler);
 }
 
-uploadInput.addEventListener('change', () => {
+uploadInputElement.addEventListener('change', () => {
   addLoadedPhotoToPreview();
 
-  showPopup(uploadOverlay);
-  uploadScaleValue.value = DEFAULT_SCALE_VALUE;
-  fieldSliderElement.style.display = 'none'; // прячем полоску в которой должен быть слайдер
+  showPopup(uploadOverlayElement);
+  uploadScaleValueElement.value = DEFAULT_SCALE_VALUE;
+  fieldSliderElementElement.style.display = 'none'; // прячем полоску в которой должен быть слайдер
 
-  closeButton.addEventListener('click', closeClickHundler);
+  closeButtonElement.addEventListener('click', closeClickHundler);
   document.addEventListener('keydown', closeKeydownHundler);
 
-  uploadScale.addEventListener('click', scaleClickHundler);
-  effectButtonsField.addEventListener('click', addEffectClickHundler);
+  uploadScaleElement.addEventListener('click', scaleClickHundler);
+  effectButtonsFieldElement.addEventListener('click', addEffectClickHundler);
 
-  form.addEventListener('submit', submitFormHundler);
-  submitButton.addEventListener('click', clickSubmitButtonHundler);
+  formElement.addEventListener('submit', submitFormHundler);
+  submitButtonElement.addEventListener('click', clickSubmitButtonHundler);
 });

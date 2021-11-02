@@ -1,19 +1,19 @@
 const returnFormInitialState = () => {
-  const hashTagInput = document.querySelector('.text__hashtags');
-  const commentTextarea = document.querySelector('.img-upload__form textarea');
-  const originEffectInput = document.querySelector('#effect-none');
-  const imagePreview = document.querySelector('.img-upload__preview img');
-  const effetctlevelInput = document.querySelector('.effect-level__value');
-  const uploadFileInput = document.querySelector('.img-upload__input');
+  const hashTagInputElement = document.querySelector('.text__hashtags');
+  const commentTextareaElement = document.querySelector('.img-upload__form textarea');
+  const originEffectInputElement = document.querySelector('#effect-none');
+  const imagePreviewElement = document.querySelector('.img-upload__preview img');
+  const effetctlevelInputElement = document.querySelector('.effect-level__value');
+  const uploadFileInputElement = document.querySelector('.img-upload__input');
 
-  commentTextarea.value = '';
-  imagePreview.style = '';
-  imagePreview.className = '';
-  hashTagInput.value = '';
-  effetctlevelInput.value = '';
-  uploadFileInput.value = '';
+  commentTextareaElement.value = '';
+  imagePreviewElement.style = '';
+  imagePreviewElement.className = '';
+  hashTagInputElement.value = '';
+  effetctlevelInputElement.value = '';
+  uploadFileInputElement.value = '';
 
-  originEffectInput.checked = true;
+  originEffectInputElement.checked = true;
 };
 
 export default returnFormInitialState;

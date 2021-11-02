@@ -45,12 +45,12 @@ const EFFECTS_LIST = {
   },
 };
 
-const imagenPreview = document.querySelector('.img-upload__preview img');
-const uploadScale = document.querySelector('.img-upload__scale');
+const imagenPreviewElement = document.querySelector('.img-upload__preview img');
+const uploadScaleElement = document.querySelector('.img-upload__scale');
 const sliderElement = document.querySelector('.effect-level__slider');
 
-const uploadScaleValue = uploadScale.querySelector('.scale__control--value');
-const uploadEffectLevelValue = document.querySelector('.effect-level__value');
+const uploadScaleValueElement = uploadScaleElement.querySelector('.scale__control--value');
+const uploadEffectLevelValueElement = document.querySelector('.effect-level__value');
 const fieldSliderElement = document.querySelector('.effect-level');
 
 const initalsSlider = () => {
@@ -87,8 +87,8 @@ const updateSliderEffect = (effectObj) => {
   });
 
   const sliderConfigUpdateHundler = (values, handle) => {
-    imagenPreview.style.filter = `${effectObj.nameStyleFilter}(${values[handle]}${effectObj.operation})`;
-    uploadEffectLevelValue.value = values[handle];
+    imagenPreviewElement.style.filter = `${effectObj.nameStyleFilter}(${values[handle]}${effectObj.operation})`;
+    uploadEffectLevelValueElement.value = values[handle];
   };
 
   sliderElement.noUiSlider.on('update', sliderConfigUpdateHundler);
@@ -96,7 +96,7 @@ const updateSliderEffect = (effectObj) => {
 
 
 const scaleOperationWithImagen = (operation) => {
-  let currentValue = uploadScaleValue.value.replace(/%/g, '');
+  let currentValue = uploadScaleValueElement.value.replace(/%/g, '');
 
   if (operation === 'bigger') {
     currentValue = currentValue >= MAX_SCALE_VALUE ? currentValue : Number(currentValue) + STEP_SCALE_VALUE;
@@ -106,13 +106,13 @@ const scaleOperationWithImagen = (operation) => {
     throw Error('Wrong arguments');
   }
 
-  uploadScaleValue.value = `${currentValue}%`;
-  imagenPreview.style.transform = `scale(${currentValue/100})`;
+  uploadScaleValueElement.value = `${currentValue}%`;
+  imagenPreviewElement.style.transform = `scale(${currentValue/100})`;
 };
 
 const effectOperationWithImagen = (effect) => {
-  imagenPreview.className = '';
-  imagenPreview.classList.add(`effects__preview--${effect}`);
+  imagenPreviewElement.className = '';
+  imagenPreviewElement.classList.add(`effects__preview--${effect}`);
 
   if (effect !== 'none') {
     if (!sliderElement.noUiSlider) {
@@ -122,7 +122,7 @@ const effectOperationWithImagen = (effect) => {
     fieldSliderElement.style.display = 'block';
     updateSliderEffect(EFFECTS_LIST[effect]);
   } else {
-    imagenPreview.style = '';
+    imagenPreviewElement.style = '';
     fieldSliderElement.style.display = 'none';
     sliderElement.noUiSlider.destroy();
   }

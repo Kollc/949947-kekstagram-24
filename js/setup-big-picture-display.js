@@ -8,16 +8,21 @@ import checkEscapeKeydown from './utils/check-escape-keydown.js';
 const DEFAULT_COUNT_COMMENTS = 5;
 let defaultCountCommentsCurrentPhoto = DEFAULT_COUNT_COMMENTS;
 
-const bigPicture = document.querySelector('.big-picture');
-const closeButton = bigPicture.querySelector('.big-picture__cancel');
+const bigPictureElement = document.querySelector('.big-picture');
+const closeButtonElement = bigPictureElement.querySelector('.big-picture__cancel');
 const commentCountElement = document.querySelector('.social__comment-count');
-const commentLoaderButton = document.querySelector('.comments-loader');
-const socialCommentsContainer = bigPicture.querySelector('.social__comments');
-const socialComment = socialCommentsContainer.querySelector('.social__comment');
+const commentLoaderButtonElement = document.querySelector('.comments-loader');
+const socialCommentsContainerElement = bigPictureElement.querySelector('.social__comments');
+const socialCommentElement = socialCommentsContainerElement.querySelector('.social__comment');
 const commentsLoadedElement = document.querySelector('.comments-loaded');
 
+const imagenElement = bigPictureElement.querySelector('.big-picture__img img');
+const likesCountElement = bigPictureElement.querySelector('.likes-count');
+const commentsCountElement = bigPictureElement.querySelector('.comments-count');
+const socialCaptionElement = bigPictureElement.querySelector('.social__caption');
+
 commentCountElement.classList.remove('hidden');
-commentLoaderButton.classList.remove('hidden');
+commentLoaderButtonElement.classList.remove('hidden');
 
 const loadPhotoComments = ({
   comments,
@@ -25,8 +30,8 @@ const loadPhotoComments = ({
   const currentCountCommentRequest = incCountComments ? defaultCountCommentsCurrentPhoto += 5 : defaultCountCommentsCurrentPhoto;
   const countElementCurrent = comments.length < currentCountCommentRequest ? comments.length : currentCountCommentRequest;
 
-  commentLoaderButton.classList.remove('hidden');
-  socialCommentsContainer.innerHTML = '';
+  commentLoaderButtonElement.classList.remove('hidden');
+  socialCommentsContainerElement.innerHTML = '';
   const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < countElementCurrent; i++) {
@@ -39,11 +44,11 @@ const loadPhotoComments = ({
   }
 
   if (comments.length <= currentCountCommentRequest) {
-    commentLoaderButton.classList.add('hidden');
+    commentLoaderButtonElement.classList.add('hidden');
   }
 
   commentsLoadedElement.textContent = countElementCurrent;
-  socialCommentsContainer.appendChild(fragment);
+  socialCommentsContainerElement.appendChild(fragment);
 };
 
 const addDataBigPicture = ({
@@ -52,22 +57,22 @@ const addDataBigPicture = ({
   comments,
   description,
 }) => {
-  bigPicture.querySelector('.big-picture__img img').src = url;
-  bigPicture.querySelector('.likes-count').textContent = likes;
-  bigPicture.querySelector('.comments-count').textContent = comments.length;
-  bigPicture.querySelector('.social__caption').textContent = description;
+  imagenElement.src = url;
+  likesCountElement.textContent = likes;
+  commentsCountElement.textContent = comments.length;
+  socialCaptionElement.textContent = description;
 };
 
 const initialStatesPhoto = () => {
-  closePopup(bigPicture);
+  closePopup(bigPictureElement);
 };
 
 const setupBigPictureDisplay = (data) => {
   defaultCountCommentsCurrentPhoto = DEFAULT_COUNT_COMMENTS;
-  showPopup(bigPicture);
+  showPopup(bigPictureElement);
 
   const commentLoaderClickHundler = () => {
-    loadPhotoComments(data, socialComment, true);
+    loadPhotoComments(data, socialCommentElement, true);
   };
 
   const closeClickHundler = () => {
@@ -76,8 +81,8 @@ const setupBigPictureDisplay = (data) => {
   };
 
   const closeKeydownHundler = (evt) => {
-    if (checkEscapeKeydown(evt, bigPicture)) {
-      closePopup(bigPicture);
+    if (checkEscapeKeydown(evt, bigPictureElement)) {
+      closePopup(bigPictureElement);
     }
 
     resetListeners();
@@ -85,17 +90,17 @@ const setupBigPictureDisplay = (data) => {
 
   // объявляем функцию по другому, тк нужен hoisting
   function resetListeners() {
-    closeButton.removeEventListener('click', closeClickHundler);
+    closeButtonElement.removeEventListener('click', closeClickHundler);
     document.removeEventListener('keydown', closeKeydownHundler);
-    commentLoaderButton.removeEventListener('click', commentLoaderClickHundler);
+    commentLoaderButtonElement.removeEventListener('click', commentLoaderClickHundler);
   }
 
-  commentLoaderButton.addEventListener('click', commentLoaderClickHundler);
-  closeButton.addEventListener('click', closeClickHundler);
+  commentLoaderButtonElement.addEventListener('click', commentLoaderClickHundler);
+  closeButtonElement.addEventListener('click', closeClickHundler);
   document.addEventListener('keydown', closeKeydownHundler);
 
   addDataBigPicture(data);
-  loadPhotoComments(data, socialComment);
+  loadPhotoComments(data, socialCommentElement);
 };
 
 export default setupBigPictureDisplay;

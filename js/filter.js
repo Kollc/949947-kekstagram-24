@@ -1,4 +1,4 @@
-import renderImagen from './render-imagen.js';
+import renderImages from './render-images.js';
 import getRandomNumberInRange from './utils/get-random-positive-integer.js';
 import {
   throttle
@@ -6,28 +6,28 @@ import {
 
 const RERENDER_DELAY = 500;
 
-const fitlerContainer = document.querySelector('.img-filters');
+const fitlerContainerElement = document.querySelector('.img-filters');
 
-const filterDefaultInput = document.querySelector('#filter-default');
-const filterRandomInput = document.querySelector('#filter-random');
-const filterDiscussedInput = document.querySelector('#filter-discussed');
+const filterDefaultInputElement = document.querySelector('#filter-default');
+const filterRandomInputElement = document.querySelector('#filter-random');
+const filterDiscussedInputElement = document.querySelector('#filter-discussed');
 
 const addActiveClass = (element) => {
-  filterDefaultInput.classList.remove('img-filters__button--active');
-  filterRandomInput.classList.remove('img-filters__button--active');
-  filterDiscussedInput.classList.remove('img-filters__button--active');
+  filterDefaultInputElement.classList.remove('img-filters__button--active');
+  filterRandomInputElement.classList.remove('img-filters__button--active');
+  filterDiscussedInputElement.classList.remove('img-filters__button--active');
 
   element.classList.add('img-filters__button--active');
 };
 
 const activateFilterRenderImage = (data) => {
 
-  renderImagen(data);
-  fitlerContainer.classList.remove('img-filters--inactive');
+  renderImages(data);
+  fitlerContainerElement.classList.remove('img-filters--inactive');
 
   const viewDefaultClickHundler = (evt) => {
     addActiveClass(evt.target);
-    renderImagen(data);
+    renderImages(data);
   };
 
   const viewRandomClickHundler = (evt) => {
@@ -42,19 +42,19 @@ const activateFilterRenderImage = (data) => {
       dataCopy.splice(random, 1);
     }
 
-    renderImagen(dataRandom);
+    renderImages(dataRandom);
   };
 
   const viewDuscussedClickHundler = (evt) => {
     addActiveClass(evt.target);
 
     const dataSorted = data.slice().sort((itemFirst, itemSecond) => itemSecond.comments.length - itemFirst.comments.length);
-    renderImagen(dataSorted);
+    renderImages(dataSorted);
   };
 
-  filterDefaultInput.addEventListener('click', throttle(viewDefaultClickHundler, RERENDER_DELAY));
-  filterRandomInput.addEventListener('click', throttle(viewRandomClickHundler, RERENDER_DELAY));
-  filterDiscussedInput.addEventListener('click', throttle(viewDuscussedClickHundler, RERENDER_DELAY));
+  filterDefaultInputElement.addEventListener('click', throttle(viewDefaultClickHundler, RERENDER_DELAY));
+  filterRandomInputElement.addEventListener('click', throttle(viewRandomClickHundler, RERENDER_DELAY));
+  filterDiscussedInputElement.addEventListener('click', throttle(viewDuscussedClickHundler, RERENDER_DELAY));
 };
 
 export default activateFilterRenderImage;

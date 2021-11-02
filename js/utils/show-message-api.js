@@ -4,12 +4,12 @@ import {
 
 import checkEscapeKeydown from './check-escape-keydown.js';
 
-const body = document.querySelector('body');
-const modal = document.querySelector('.img-upload__overlay');
-const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
-const successMessageTemplate = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-const errorButton = errorMessageTemplate.querySelector('.error__button');
-const successButton = successMessageTemplate.querySelector('.success__button');
+const bodyElement = document.querySelector('body');
+const modalElement = document.querySelector('.img-upload__overlay');
+const errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+const successMessageTemplateElement = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+const errorButtonElement = errorMessageTemplateElement.querySelector('.error__button');
+const successButtonElement = successMessageTemplateElement.querySelector('.success__button');
 
 
 const createMessageErrorGetData = (className, backgroundColor, message) => {
@@ -27,17 +27,17 @@ const createMessageErrorGetData = (className, backgroundColor, message) => {
   container.style.zIndex = '100';
   container.textContent = message;
 
-  body.appendChild(container);
+  bodyElement.appendChild(container);
 };
 
 const closeSuccessMessageClickHundler = () => {
-  successMessageTemplate.remove();
+  successMessageTemplateElement.remove();
 
   resetListeners();
 };
 
 const closeErrorMessageClickHundler = () => {
-  errorMessageTemplate.remove();
+  errorMessageTemplateElement.remove();
 
   resetListeners();
 };
@@ -46,7 +46,7 @@ const closeErrorMessageSubstrateClickHundler = (evt) => {
   evt.stopPropagation();
 
   if (evt.target.classList.contains('error')) {
-    errorMessageTemplate.remove();
+    errorMessageTemplateElement.remove();
     resetListeners();
   }
 };
@@ -55,22 +55,22 @@ const closeSuccessMessageSubstrateClickHundler = (evt) => {
   evt.stopPropagation();
 
   if (evt.target.classList.contains('success')) {
-    successMessageTemplate.remove();
+    successMessageTemplateElement.remove();
     resetListeners();
   }
 };
 
 const closeSuccessMessageKeydownHundler = (evt) => {
-  if (checkEscapeKeydown(evt, successMessageTemplate)) {
-    closePopup(successMessageTemplate);
+  if (checkEscapeKeydown(evt, successMessageTemplateElement)) {
+    closePopup(successMessageTemplateElement);
   }
 
   resetListeners();
 };
 
 const closeErrorMessageKeydownHundler = (evt) => {
-  if (checkEscapeKeydown(evt, errorMessageTemplate)) {
-    closePopup(errorMessageTemplate);
+  if (checkEscapeKeydown(evt, errorMessageTemplateElement)) {
+    closePopup(errorMessageTemplateElement);
   }
 
   resetListeners();
@@ -78,35 +78,35 @@ const closeErrorMessageKeydownHundler = (evt) => {
 
 // объявляем функцию по другому, тк нужен hoisting
 function resetListeners() {
-  successButton.removeEventListener('click', closeSuccessMessageClickHundler);
-  successMessageTemplate.removeEventListener('click', closeSuccessMessageSubstrateClickHundler);
+  successButtonElement.removeEventListener('click', closeSuccessMessageClickHundler);
+  successMessageTemplateElement.removeEventListener('click', closeSuccessMessageSubstrateClickHundler);
   document.removeEventListener('keydown', closeSuccessMessageKeydownHundler);
 
-  errorButton.removeEventListener('click', closeErrorMessageClickHundler);
-  errorMessageTemplate.removeEventListener('click', closeErrorMessageSubstrateClickHundler);
+  errorButtonElement.removeEventListener('click', closeErrorMessageClickHundler);
+  errorMessageTemplateElement.removeEventListener('click', closeErrorMessageSubstrateClickHundler);
   document.removeEventListener('keydown', closeErrorMessageKeydownHundler);
 }
 
 const showErrorMessage = (errorMassege, sendDataError = false) => {
   if (sendDataError) {
-    closePopup(modal);
+    closePopup(modalElement);
 
-    errorButton.addEventListener('click', closeErrorMessageClickHundler);
-    errorMessageTemplate.addEventListener('click', closeErrorMessageSubstrateClickHundler);
+    errorButtonElement.addEventListener('click', closeErrorMessageClickHundler);
+    errorMessageTemplateElement.addEventListener('click', closeErrorMessageSubstrateClickHundler);
     document.addEventListener('keydown', closeErrorMessageKeydownHundler);
-    body.insertAdjacentElement('beforeend', errorMessageTemplate);
+    bodyElement.insertAdjacentElement('beforeend', errorMessageTemplateElement);
   } else {
     createMessageErrorGetData('show-error-message', 'red', errorMassege);
   }
 };
 
 const showSuccessMessage = () => {
-  closePopup(modal);
+  closePopup(modalElement);
 
-  successButton.addEventListener('click', closeSuccessMessageClickHundler);
-  successMessageTemplate.addEventListener('click', closeSuccessMessageSubstrateClickHundler);
+  successButtonElement.addEventListener('click', closeSuccessMessageClickHundler);
+  successMessageTemplateElement.addEventListener('click', closeSuccessMessageSubstrateClickHundler);
   document.addEventListener('keydown', closeSuccessMessageKeydownHundler);
-  body.insertAdjacentElement('beforeend', successMessageTemplate);
+  bodyElement.insertAdjacentElement('beforeend', successMessageTemplateElement);
 };
 
 export {
