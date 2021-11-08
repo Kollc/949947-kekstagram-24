@@ -41,13 +41,13 @@ const commentInputElement = document.querySelector('.text__description');
 const submitButtonElement = document.querySelector('.img-upload__submit');
 const fieldSliderElementElement = document.querySelector('.effect-level');
 
-const closeClickHundler = () => {
+const closeClickHandler = () => {
   closePopup(uploadOverlayElement);
   uploadInputElement.value = '';
   resetListeners();
 };
 
-const closeKeydownHundler = (evt) => {
+const closeKeydownHandler = (evt) => {
   const elementName = evt.target.tagName;
 
   if (elementName === 'INPUT' || elementName === 'TEXTAREA') {
@@ -59,7 +59,7 @@ const closeKeydownHundler = (evt) => {
   }
 };
 
-const scaleClickHundler = (evt) => {
+const scaleClickHandler = (evt) => {
   if (evt.target.matches('.scale__control--bigger')) {
     scaleOperationWithImagen('bigger');
   } else if (evt.target.matches('.scale__control--smaller')) {
@@ -67,18 +67,18 @@ const scaleClickHundler = (evt) => {
   }
 };
 
-const addEffectClickHundler = (evt) => {
+const addEffectClickHandler = (evt) => {
   if (evt.target.matches('input[type="radio"]')) {
     effectOperationWithImagen(evt.target.value);
   }
 };
 
-const clickSubmitButtonHundler = () => {
+const clickSubmitButtonHandler = () => {
   addErrorMessage(hashTagInputElement, checkHashTagsValidity(hashTagInputElement.value));
   addErrorMessage(commentInputElement, checkCommentValidation(commentInputElement.value));
 };
 
-const submitFormHundler = (evt) => {
+const submitFormHandler = (evt) => {
   evt.preventDefault();
 
   const data = new FormData(evt.target);
@@ -87,12 +87,12 @@ const submitFormHundler = (evt) => {
 
 // объявляем функцию по другому, тк нужен hoisting
 function resetListeners() {
-  closeButtonElement.removeEventListener('click', closeClickHundler);
-  document.removeEventListener('keydown', closeKeydownHundler);
-  uploadScaleElement.removeEventListener('click', scaleClickHundler);
-  effectButtonsFieldElement.removeEventListener('click', addEffectClickHundler);
-  formElement.removeEventListener('submit', submitFormHundler);
-  submitButtonElement.removeEventListener('click', clickSubmitButtonHundler);
+  closeButtonElement.removeEventListener('click', closeClickHandler);
+  document.removeEventListener('keydown', closeKeydownHandler);
+  uploadScaleElement.removeEventListener('click', scaleClickHandler);
+  effectButtonsFieldElement.removeEventListener('click', addEffectClickHandler);
+  formElement.removeEventListener('submit', submitFormHandler);
+  submitButtonElement.removeEventListener('click', clickSubmitButtonHandler);
 }
 
 uploadInputElement.addEventListener('change', () => {
@@ -102,12 +102,12 @@ uploadInputElement.addEventListener('change', () => {
   uploadScaleValueElement.value = DEFAULT_SCALE_VALUE;
   fieldSliderElementElement.style.display = 'none'; // прячем полоску в которой должен быть слайдер
 
-  closeButtonElement.addEventListener('click', closeClickHundler);
-  document.addEventListener('keydown', closeKeydownHundler);
+  closeButtonElement.addEventListener('click', closeClickHandler);
+  document.addEventListener('keydown', closeKeydownHandler);
 
-  uploadScaleElement.addEventListener('click', scaleClickHundler);
-  effectButtonsFieldElement.addEventListener('click', addEffectClickHundler);
+  uploadScaleElement.addEventListener('click', scaleClickHandler);
+  effectButtonsFieldElement.addEventListener('click', addEffectClickHandler);
 
-  formElement.addEventListener('submit', submitFormHundler);
-  submitButtonElement.addEventListener('click', clickSubmitButtonHundler);
+  formElement.addEventListener('submit', submitFormHandler);
+  submitButtonElement.addEventListener('click', clickSubmitButtonHandler);
 });

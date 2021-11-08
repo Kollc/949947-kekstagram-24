@@ -14,37 +14,37 @@ const checkCommentValidation = (elementValue) => {
 };
 
 const checkHashTagsValidity = (elementValue) => {
-  const errorMessageArray = Array();
-  const allHashTags = elementValue.trim().split(' ');
+  const errorMessages = Array();
+  const allHashTags = elementValue.trim().toLowerCase().split(' ');
 
   if (allHashTags.length > 0 && elementValue) {
 
     if (allHashTags.length > MAX_HASHTAG_COUNT) {
-      errorMessageArray.push('Количество Хэштегов не должно превышать 5 штук');
+      errorMessages.push('Количество Хэштегов не должно превышать 5 штук');
     }
 
     const uniqueHashTags = new Set(allHashTags);
 
     if (uniqueHashTags.size < allHashTags.length) {
-      errorMessageArray.push('Один и тот же хэш-тег не может быть использован дважды');
+      errorMessages.push('Один и тот же хэш-тег не может быть использован дважды');
     }
 
     allHashTags.forEach((item) => {
       if (item.match(/^#/) === null) {
-        errorMessageArray.push('Хэштег должен начинаться с #');
+        errorMessages.push('Хэштег должен начинаться с #');
       } else if (item.match(/^#[a-zA-Zа-яА-ЯЁё0-9]{1,}$/) === null) {
-        errorMessageArray.push('В Хэштеге могут быть использованны только цифры и буквы латиницы и кириллицы');
+        errorMessages.push('В Хэштеге могут быть использованны только цифры и буквы латиницы и кириллицы');
       }
 
       if (item.length <= MIN_HASHTAG_LENGTH) {
-        errorMessageArray.push('Хэштег не может состоять из одной решетки');
+        errorMessages.push('Хэштег не может состоять из одной решетки');
       } else if (item.length > MAX_HASHTAG_LENGTH) {
-        errorMessageArray.push('Максимальная длинна хэштега не превышает 20 символов');
+        errorMessages.push('Максимальная длинна хэштега не превышает 20 символов');
       }
     });
   }
 
-  return errorMessageArray.filter((message, index) => errorMessageArray.indexOf(message) === index).join('\n');
+  return errorMessages.filter((message, index) => errorMessages.indexOf(message) === index).join('\n');
 };
 
 export {

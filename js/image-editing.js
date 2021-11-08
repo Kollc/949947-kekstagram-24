@@ -53,7 +53,7 @@ const uploadScaleValueElement = uploadScaleElement.querySelector('.scale__contro
 const uploadEffectLevelValueElement = document.querySelector('.effect-level__value');
 const fieldSliderElement = document.querySelector('.effect-level');
 
-const initalsSlider = () => {
+const createSlider = () => {
   noUiSlider.create(sliderElement, {
     range: {
       min: DEFAULT_MIN_SLIDER_VALUE,
@@ -86,12 +86,12 @@ const updateSliderEffect = (effectObj) => {
     step: effectObj.step,
   });
 
-  const sliderConfigUpdateHundler = (values, handle) => {
+  const sliderConfigUpdateHandler = (values, handle) => {
     imagenPreviewElement.style.filter = `${effectObj.nameStyleFilter}(${values[handle]}${effectObj.operation})`;
     uploadEffectLevelValueElement.value = values[handle];
   };
 
-  sliderElement.noUiSlider.on('update', sliderConfigUpdateHundler);
+  sliderElement.noUiSlider.on('update', sliderConfigUpdateHandler);
 };
 
 
@@ -116,7 +116,7 @@ const effectOperationWithImagen = (effect) => {
 
   if (effect !== 'none') {
     if (!sliderElement.noUiSlider) {
-      initalsSlider();
+      createSlider();
     }
 
     fieldSliderElement.style.display = 'block';

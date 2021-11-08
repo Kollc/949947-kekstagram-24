@@ -63,24 +63,20 @@ const addDataBigPicture = ({
   socialCaptionElement.textContent = description;
 };
 
-const initialStatesPhoto = () => {
-  closePopup(bigPictureElement);
-};
-
 const setupBigPictureDisplay = (data) => {
   defaultCountCommentsCurrentPhoto = DEFAULT_COUNT_COMMENTS;
   showPopup(bigPictureElement);
 
-  const commentLoaderClickHundler = () => {
+  const commentLoaderClickHandler = () => {
     loadPhotoComments(data, socialCommentElement, true);
   };
 
-  const closeClickHundler = () => {
-    initialStatesPhoto();
+  const closeClickHandler = () => {
+    closePopup(bigPictureElement);
     resetListeners();
   };
 
-  const closeKeydownHundler = (evt) => {
+  const closeKeydownHandler = (evt) => {
     if (checkEscapeKeydown(evt, bigPictureElement)) {
       closePopup(bigPictureElement);
     }
@@ -90,14 +86,14 @@ const setupBigPictureDisplay = (data) => {
 
   // объявляем функцию по другому, тк нужен hoisting
   function resetListeners() {
-    closeButtonElement.removeEventListener('click', closeClickHundler);
-    document.removeEventListener('keydown', closeKeydownHundler);
-    commentLoaderButtonElement.removeEventListener('click', commentLoaderClickHundler);
+    closeButtonElement.removeEventListener('click', closeClickHandler);
+    document.removeEventListener('keydown', closeKeydownHandler);
+    commentLoaderButtonElement.removeEventListener('click', commentLoaderClickHandler);
   }
 
-  commentLoaderButtonElement.addEventListener('click', commentLoaderClickHundler);
-  closeButtonElement.addEventListener('click', closeClickHundler);
-  document.addEventListener('keydown', closeKeydownHundler);
+  commentLoaderButtonElement.addEventListener('click', commentLoaderClickHandler);
+  closeButtonElement.addEventListener('click', closeClickHandler);
+  document.addEventListener('keydown', closeKeydownHandler);
 
   addDataBigPicture(data);
   loadPhotoComments(data, socialCommentElement);

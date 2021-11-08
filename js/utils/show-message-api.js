@@ -30,19 +30,19 @@ const createMessageErrorGetData = (className, backgroundColor, message) => {
   bodyElement.appendChild(container);
 };
 
-const closeSuccessMessageClickHundler = () => {
+const closeSuccessMessageClickHandler = () => {
   successMessageTemplateElement.remove();
 
   resetListeners();
 };
 
-const closeErrorMessageClickHundler = () => {
+const closeErrorMessageClickHandler = () => {
   errorMessageTemplateElement.remove();
 
   resetListeners();
 };
 
-const closeErrorMessageSubstrateClickHundler = (evt) => {
+const closeErrorMessageSubstrateClickHandler = (evt) => {
   evt.stopPropagation();
 
   if (evt.target.classList.contains('error')) {
@@ -51,7 +51,7 @@ const closeErrorMessageSubstrateClickHundler = (evt) => {
   }
 };
 
-const closeSuccessMessageSubstrateClickHundler = (evt) => {
+const closeSuccessMessageSubstrateClickHandler = (evt) => {
   evt.stopPropagation();
 
   if (evt.target.classList.contains('success')) {
@@ -60,7 +60,7 @@ const closeSuccessMessageSubstrateClickHundler = (evt) => {
   }
 };
 
-const closeSuccessMessageKeydownHundler = (evt) => {
+const closeSuccessMessageKeydownHandler = (evt) => {
   if (checkEscapeKeydown(evt, successMessageTemplateElement)) {
     closePopup(successMessageTemplateElement);
   }
@@ -68,7 +68,7 @@ const closeSuccessMessageKeydownHundler = (evt) => {
   resetListeners();
 };
 
-const closeErrorMessageKeydownHundler = (evt) => {
+const closeErrorMessageKeydownHandler = (evt) => {
   if (checkEscapeKeydown(evt, errorMessageTemplateElement)) {
     closePopup(errorMessageTemplateElement);
   }
@@ -78,22 +78,22 @@ const closeErrorMessageKeydownHundler = (evt) => {
 
 // объявляем функцию по другому, тк нужен hoisting
 function resetListeners() {
-  successButtonElement.removeEventListener('click', closeSuccessMessageClickHundler);
-  successMessageTemplateElement.removeEventListener('click', closeSuccessMessageSubstrateClickHundler);
-  document.removeEventListener('keydown', closeSuccessMessageKeydownHundler);
+  successButtonElement.removeEventListener('click', closeSuccessMessageClickHandler);
+  successMessageTemplateElement.removeEventListener('click', closeSuccessMessageSubstrateClickHandler);
+  document.removeEventListener('keydown', closeSuccessMessageKeydownHandler);
 
-  errorButtonElement.removeEventListener('click', closeErrorMessageClickHundler);
-  errorMessageTemplateElement.removeEventListener('click', closeErrorMessageSubstrateClickHundler);
-  document.removeEventListener('keydown', closeErrorMessageKeydownHundler);
+  errorButtonElement.removeEventListener('click', closeErrorMessageClickHandler);
+  errorMessageTemplateElement.removeEventListener('click', closeErrorMessageSubstrateClickHandler);
+  document.removeEventListener('keydown', closeErrorMessageKeydownHandler);
 }
 
 const showErrorMessage = (errorMassege, sendDataError = false) => {
   if (sendDataError) {
     closePopup(modalElement);
 
-    errorButtonElement.addEventListener('click', closeErrorMessageClickHundler);
-    errorMessageTemplateElement.addEventListener('click', closeErrorMessageSubstrateClickHundler);
-    document.addEventListener('keydown', closeErrorMessageKeydownHundler);
+    errorButtonElement.addEventListener('click', closeErrorMessageClickHandler);
+    errorMessageTemplateElement.addEventListener('click', closeErrorMessageSubstrateClickHandler);
+    document.addEventListener('keydown', closeErrorMessageKeydownHandler);
     bodyElement.insertAdjacentElement('beforeend', errorMessageTemplateElement);
   } else {
     createMessageErrorGetData('show-error-message', 'red', errorMassege);
@@ -103,9 +103,9 @@ const showErrorMessage = (errorMassege, sendDataError = false) => {
 const showSuccessMessage = () => {
   closePopup(modalElement);
 
-  successButtonElement.addEventListener('click', closeSuccessMessageClickHundler);
-  successMessageTemplateElement.addEventListener('click', closeSuccessMessageSubstrateClickHundler);
-  document.addEventListener('keydown', closeSuccessMessageKeydownHundler);
+  successButtonElement.addEventListener('click', closeSuccessMessageClickHandler);
+  successMessageTemplateElement.addEventListener('click', closeSuccessMessageSubstrateClickHandler);
+  document.addEventListener('keydown', closeSuccessMessageKeydownHandler);
   bodyElement.insertAdjacentElement('beforeend', successMessageTemplateElement);
 };
 
